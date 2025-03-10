@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import './index.css';
 
 function App() {
@@ -52,7 +52,9 @@ function App() {
       const botMessage = data.choices?.[0]?.message?.content
         ?.replace(/\\(?:boxed|text){([^}]*)}/g, '$1')
         ?.replace(/\\\\(?:\(|\))/g, '')
-        ?.replace(/\$/g, '') || 'No response content';
+        ?.replace(/\$/g, '')
+        ?.replace(/^I/, '')
+        ?.replace(/<\/｜>$/g, '') || 'No response content';
       
       setMessages(prev => [...prev, { content: botMessage, isBot: true }]);
       setInputText('');
@@ -79,22 +81,36 @@ function App() {
         </svg>
       </button>
       <div className="chat-window">
-        {messages.map((msg, i) => (
-          <div key={i} className={`message ${msg.isBot ? 'bot' : 'user'}`}>
-            {msg.content}
-          </div>
-        ))}
+        {messages.map((msg, i) => {
+          const parts = msg.content.split(/(\*\*.*?\*\*)/g);
+          return (
+            <div key={i} className={`message ${msg.isBot ? 'bot' : 'user'}`}>
+              {parts.map((part, partIndex) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                  return <strong key={partIndex}>{part.slice(2, -2)}</strong>;
+                }
+                return part;
+              })}
+            </div>
+          );
+        })}
         {isLoading && <div className="loading">Processing...</div>}
         {error && <div className="error">{error}</div>}
       </div>
       
       <form onSubmit={handleSubmit}>
         <textarea
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          placeholder="Type your message..."
-          disabled={isLoading}
-        />
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
+            placeholder="Type your message..."
+            disabled={isLoading}
+          />
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'Sending...' : 'Send'}
         </button>

@@ -1,4 +1,4 @@
-y:root {
+:root {
   /* Base Colors HSL */
   --primary-h: 212;
   --primary-s: 90%;
@@ -60,6 +60,39 @@ y:root {
   --shadow-h: 220;
 }
 
+[data-theme="light"] {
+  --border-main: hsl(214 16% 75%);
+}
+
+[data-theme="light"] .chat-window {
+  border: 2px solid var(--border-main);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+[data-theme="light"] textarea {
+  border: 2px solid var(--border-main);
+  transition: border-color 0.2s ease;
+}
+
+[data-theme="light"] textarea:focus {
+  border-color: hsl(214 90% 70%);
+  outline: none;
+}
+
+[data-theme="light"] button {
+  background: #3B82F6;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+[data-theme="light"] button:hover {
+  background: #2563eb;
+}
+
+[data-theme="light"] button:disabled {
+  background: #94a3b8;
+}
+
 * {
   transition: var(--transition-colors);
   scrollbar-color: var(--border-primary) var(--bg-primary);
@@ -91,18 +124,36 @@ y:root {
   transition: var(--transition-base);
 }
 
+.message {
+  padding: 12px 16px;
+  border-radius: 16px;
+  margin: 12px 0;
+  max-width: 70%;
+  box-shadow: var(--shadow-elevation-low);
+  line-height: 1.5;
+}
+
 .message.user {
   background: var(--surface-main);
   margin-left: auto;
-  color: var(--text-main);
-  border-color: transparent;
+  color: var(--text-on-primary);
 }
 
 .message.bot {
   background: var(--bg-secondary);
   margin-right: auto;
-  color: var(--text-main);
-  border-color: transparent;
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .message.user {
+  background: hsl(214 90% 95%);
+  color: hsl(214 90% 20%);
+}
+
+[data-theme="light"] .message.bot {
+  background: hsl(0 0% 100%);
+  color: hsl(222 47% 11%);
+  border: 1px solid hsl(214 32% 91%);
 }
 
 .loading {
@@ -161,6 +212,7 @@ y:root {
 form {
   display: flex;
   gap: 10px;
+  align-items: flex-end;
 }
 
 textarea {
@@ -201,7 +253,10 @@ textarea {
 }
 
 button {
-  padding: 10px 20px;
+  flex-shrink: 0;
+  width: 100px;
+  height: 50px;
+  padding: 12px 24px;
   background: var(--surface-alt);
   color: var(--text-main);
   border: none;
@@ -209,7 +264,7 @@ button {
   cursor: pointer;
   transition: var(--transition-base);
   box-shadow: var(--shadow-elevation-low);
-  padding: 12px 24px;
+  white-space: nowrap;
 }
 
 button:hover {
