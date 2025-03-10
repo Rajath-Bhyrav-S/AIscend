@@ -24,7 +24,7 @@ def chat():
         }
 
         payload = {
-            'model': 'deepseek/deepseek-r1-zero:free',
+            'model': 'cognitivecomputations/dolphin3.0-r1-mistral-24b:free',
             'messages': messages,
             'temperature': 0.7
         }
