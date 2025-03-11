@@ -58,10 +58,33 @@
   --border-main: var(--border-primary);
   --overlay: var(--overlay);
   --shadow-h: 220;
+  
+  /* Component-specific dark theme vars */
+  --button-bg: var(--surface-main);
+  --button-hover-bg: hsl(var(--primary-h) var(--primary-s) 65%);
+  --input-border: var(--border-main);
+  --message-user-bg: var(--surface-main);
+  --message-bot-border: transparent;
 }
 
 [data-theme="light"] {
-  --border-main: hsl(214 16% 75%);
+  --bg-primary: hsl(0 0% 100%);
+  --bg-secondary: hsl(0 0% 98%);
+  --bg-tertiary: hsl(0 0% 95%);
+  --text-main: hsl(222 47% 11%);
+  --text-muted: hsl(215 16% 47%);
+  --surface-main: hsl(var(--primary-h) 90% 96%);
+  --surface-alt: hsl(142 71% 95%);
+  --border-main: hsl(214 32% 91%);
+  --overlay: hsl(0 0% 0% / 0.1);
+  --shadow-h: 214;
+  
+  /* Component-specific light theme vars */
+  --button-bg: var(--surface-main);
+  --button-hover-bg: hsl(var(--primary-h) 90% 92%);
+  --input-border: var(--border-main);
+  --message-user-bg: var(--surface-main);
+  --message-bot-border: var(--border-main);
 }
 
 [data-theme="light"] .chat-window {
@@ -146,14 +169,17 @@
 }
 
 [data-theme="light"] .message.user {
-  background: hsl(214 90% 95%);
-  color: hsl(214 90% 20%);
+  background: var(--message-user-bg);
+  color: var(--text-main);
+  border-color: var(--input-border);
+  transition: var(--transition-base);
 }
 
 [data-theme="light"] .message.bot {
-  background: hsl(0 0% 100%);
-  color: hsl(222 47% 11%);
-  border: 1px solid hsl(214 32% 91%);
+  background: var(--bg-primary);
+  color: var(--text-main);
+  border: 1px solid var(--message-bot-border);
+  transition: var(--transition-base);
 }
 
 .loading {

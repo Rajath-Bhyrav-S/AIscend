@@ -1,0 +1,9 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from Backend.app import app, db
+
+with app.app_context():
+    db.create_all()
+    print("Database tables created successfully")

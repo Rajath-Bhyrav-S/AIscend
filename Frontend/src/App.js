@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback, memo } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
+  const [sessionId, setSessionId] = useState(null); // Removed TypeScript type annotation
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [theme, setTheme] = useState(() => {
@@ -28,17 +29,22 @@ function App() {
     try {
       const newMessage = { content: inputText, isBot: false };
       setMessages(prev => [...prev, newMessage]);
-      
-      const response = await fetch(process.env.REACT_APP_API_URL, {
+      const response = await fetch('http://localhost:5000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [
             { role: 'system', content: 'You are a helpful assistant. Respond conversationally' },
             { role: 'user', content: inputText }
-          ]
+          ],
+          session_id: sessionId
         })
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'API request failed');
+      }
 
       if (!response.ok) throw new Error('API request failed');
       
