@@ -1,13 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <title>Aesthetic Interface</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rajaths AI - Your Intelligent Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">R</div>
+                    <span>Rajaths AI</span>
+                </div>
+            </div>
+            <button class="new-chat-btn">
+                <span class="icon">+</span>
+                New Chat
+            </button>
+            <div class="conversations">
+                <div class="conversation active">
+                    <span class="icon">💬</span>
+                    Exploring generative AI
+                </div>
+                <div class="conversation">
+                    <span class="icon">💬</span>
+                    Website development help
+                </div>
+                <div class="conversation">
+                    <span class="icon">💬</span>
+                    Creative writing assistant
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <div class="sidebar-footer-item">
+                    <span class="icon">👤</span>
+                    Your Account
+                </div>
+                <div class="sidebar-footer-item">
+                    <span class="icon">⚙️</span>
+                    Settings
+                </div>
+                <div class="sidebar-footer-item theme-toggle" id="theme-toggle">
+                    <span class="icon">🌙</span>
+                    Dark Mode
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <div class="mobile-header">
+                <button class="menu-button" id="menu-button">
+                    <span class="icon">☰</span>
+                </button>
+                <div class="logo">
+                    <div class="logo-icon">N</div>
+                    <span>Rajaths AI</span>
+                </div>
+                <button class="theme-toggle" id="mobile-theme-toggle">
+                    <span class="icon">🌙</span>
+                </button>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="chat-container" id="chat-container">
+                <!-- Welcome Screen (shows when no chat is active) -->
+                <div class="welcome-screen" id="welcome-screen">
+                    <div class="welcome-logo">N</div>
+                    <h1 class="welcome-title">Welcome to Rajaths AI</h1>
+                    <p class="welcome-subtitle">Your intelligent assistant for work, learning, and creative tasks. Ask me anything or try one of these examples:</p>
+                    
+                    <div class="example-prompts">
+                        <div class="example-prompt">
+                            <h3>Creative Writing</h3>
+                            <p>Write a short story about a time traveler who discovers the true origins of humanity.</p>
+                        </div>
+                        <div class="example-prompt">
+                            <h3>Code Assistance</h3>
+                            <p>Create a responsive navigation menu using HTML, CSS, and JavaScript.</p>
+                        </div>
+                        <div class="example-prompt">
+                            <h3>Learning</h3>
+                            <p>Explain quantum computing in simple terms. How is it different from classical computing?</p>
+                        </div>
+                        <div class="example-prompt">
+                            <h3>Problem Solving</h3>
+                            <p>I need to organize a team-building event for 20 people remotely. Any creative ideas?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages will be dynamically added here -->
+                <div id="messages" style="display: none;">
+                    <!-- Example message structure -->
+                    <div class="message user-message">
+                        <div class="message-avatar user-avatar">U</div>
+                        <div class="message-content">
+                            <div class="message-sender">You</div>
+                            <div class="message-bubble">How can artificial intelligence help with climate change?</div>
+                        </div>
+                    </div>
+                    
+                    <div class="message ai-message">
+                        <div class="message-avatar ai-avatar">R</div>
+                        <div class="message-content">
+                            <div class="message-sender">Rajaths AI</div>
+                            <div class="message-bubble">
+                                Artificial intelligence can contribute to addressing climate change in several impactful ways:
+                                <br><br>
+                                <strong>1. Energy optimization:</strong> AI can optimize energy grids, reducing waste and integrating renewable sources more efficiently.
+                                <br><br>
+                                <strong>2. Climate modeling:</strong> AI enhances climate models to better predict changes and inform policy decisions.
+                                <br><br>
+                                <strong>3. Emissions reduction:</strong> AI helps industries optimize processes to reduce carbon footprints.
+                                <br><br>
+                                <strong>4. Smart infrastructure:</strong> AI-powered smart buildings and transportation systems reduce energy consumption.
+                                <br><br>
+                                Would you like me to elaborate on any specific application of AI in climate action?
+                            </div>
+                            <div class="message-actions">
+                                <button class="message-action">
+                                    <span class="icon">👍</span> Like
+                                </button>
+                                <button class="message-action">
+                                    <span class="icon">👎</span> Dislike
+                                </button>
+                                <button class="message-action">
+                                    <span class="icon">📋</span> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <textarea 
+                        class="chat-input" 
+                        id="chat-input" 
+                        placeholder="Message Rajaths AI..."
+                        rows="1"
+                    ></textarea>
+                    <button class="send-button" id="send-button" disabled>
+                        <span class="icon">↑</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>

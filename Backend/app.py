@@ -12,11 +12,18 @@ load_dotenv()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-CORS(app, resources={r"/api/*": {"origins": os.getenv("ALLOWED_ORIGIN", "http://localhost:3000")}})
+CORS(app, resources={r"/api/*": {"origins": os.getenv("ALLOWED_ORIGIN", "http://localhost:3000"), "supports_credentials": True}})
 
 db = SQLAlchemy(app)
 
 class Session(db.Model):
+    id = db.Column(db.String(36), primary_key=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    messages = db.Column(db.JSON)
+
+# Initialize database tables if they don't exist
+with app.app_context():
+    db.create_all()
     id = db.Column(db.String(36), primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     messages = db.Column(db.JSON)
@@ -65,8 +72,8 @@ def chat():
 
         # Ensure system message is first in conversation
         payload = {
-            'model': 'mistralai/mistral-7b-instruct:free',
-            'messages': [{'role': 'system', 'content': 'You are a helpful assistant'}] + messages,
+            'model': 'google/gemini-2.0-pro-exp-02-05:free',
+            'messages': messages,  # Using direct messages from frontend
             'temperature': 0.7,
             'max_tokens': 1000
         }
