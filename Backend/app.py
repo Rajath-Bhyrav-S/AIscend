@@ -72,7 +72,7 @@ def chat():
 
         # Ensure system message is first in conversation
         payload = {
-            'model': 'google/gemini-2.0-pro-exp-02-05:free',
+            'model': 'google/gemma-3-27b-it:free',
             'messages': messages,  # Using direct messages from frontend
             'temperature': 0.7,
             'max_tokens': 1000
