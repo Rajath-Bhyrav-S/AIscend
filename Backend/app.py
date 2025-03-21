@@ -72,7 +72,7 @@ def chat():
 
         # Ensure system message is first in conversation
         payload = {
-            'model': 'google/gemma-3-27b-it:free',
+            'model': 'mistralai/mistral-small-3.1-24b-instruct:free',
             'messages': messages,  # Using direct messages from frontend
             'temperature': 0.7,
             'max_tokens': 1000

@@ -159,15 +159,33 @@ function createTypingIndicator() {
 function addMessage(text, sender) {
     const messageElement = document.createElement('div');
     messageElement.className = `message ${sender}-message`;
-    
+
     const senderName = sender === 'user' ? 'You' : 'RajathAI';
     const avatarLetter = sender === 'user' ? 'U' : 'N';
-    
+
+    // Replace **text** with <b>text</b>
+    let formattedText = text.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+    // Replace ###text with <h3>text</h3>
+    formattedText = formattedText.replace(/###([^*]+)/g, '<h3>$1</h3>');
+
+    // Replace numbered lists with <ol><li> elements
+    formattedText = formattedText.replace(/(\d+\.\s[^\n]+)/g, (match) => {
+        const items = match.split('\n');
+        let list = '<ol>';
+        items.forEach(item => {
+            if (item.trim() !== '') {
+                list += `<li>${item.trim()}</li>`;
+            }
+        });
+        list += '</ol>';
+        return list;
+    });
+
     messageElement.innerHTML = `
         <div class="message-avatar ${sender}-avatar">${avatarLetter}</div>
         <div class="message-content">
             <div class="message-sender">${senderName}</div>
-            <div class="message-bubble">${text}</div>
+            <div class="message-bubble">${formattedText}</div>
             ${sender === 'ai' ? `
             <div class="message-actions">
                 <button class="message-action">
@@ -183,7 +201,7 @@ function addMessage(text, sender) {
             ` : ''}
         </div>
     `;
-    
+
     messagesContainer.appendChild(messageElement);
     messageElement.scrollIntoView({ behavior: 'smooth' });
 }
